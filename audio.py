@@ -23,15 +23,23 @@ def pad_mel_spectrogram(spec, params):
     return spec
 
 
+def remove_dims_mel_spectrogram(spec):
+    return np.squeeze(spec, axis=(0, 3))
+
+
 def expand_dims_mel_spectrogram(spec):
     return np.expand_dims(np.expand_dims(spec, axis=0), axis=3)
 
 
-def save_mel_spectrogram(spec, sr, filename):
-    librosa.display.specshow(spec, sr=sr, cmap='magma')
+def save_mel_spectrogram(spec, filename, params):
+    spec = remove_dims_mel_spectrogram(spec)
+    librosa.display.specshow(spec, sr=params['SAMPLE_RATE'], cmap='magma')
     plt.savefig(filename, bbox_inches='tight')
 
 
-def save_mel_as_wave(spec, sr, filename):
-    wav = librosa.feature.inverse.mel_to_audio(spec, sr=sr)
-    sf.write(filename, wav, sr)
+def save_mel_spectrogram_as_wave(spec, filename, params):
+    spec = remove_dims_mel_spectrogram(spec)
+    wav = librosa.feature.inverse.mel_to_audio(spec, sr=params['SAMPLE_RATE'],
+                                               n_fft=params['N_FFT'],
+                                               hop_length=params['HOP_LENGTH'])
+    sf.write(filename, wav, params['SAMPLE_RATE'])
