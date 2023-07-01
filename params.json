@@ -1,0 +1,30 @@
+{
+  "SAMPLE_RATE": 16000,
+  "SAMPLE_LENGTH": 2,
+  "N_FFT": 1024,
+  "HOP_LENGTH": 256,
+  "MEL_BANDS": 128,
+  "PAD_LENGTH": 125,
+
+  "DIM_LATENT": 64,
+  "CONV_CHANNELS": [
+    32,
+    64,
+    32,
+    32
+  ],
+  "MAX_POOLING": [
+    [4, 4],
+    [2, 2],
+    [2, 4],
+    [2, 2]
+  ],
+  "DECONV_SHAPE": [
+    [1, 15, 14, 32],
+    [1, 31, 31, 64],
+    [1, 63, 62, 32],
+    [1, 128, 125, 1]
+  ],
+  "IAF_FLOW_LENGTH": 5,
+  "DIM_AUTOREGRESSIVE_NL": 64
+}
